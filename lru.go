@@ -8,14 +8,12 @@ import (
 	"os"
 	"fmt"
 	"sync"
-	"time"
 	"strconv"
-	"math/rand"
 )
 
 type LRUProvider interface {
 	Read(filename string) ([]byte, error)
-	Debug()
+	debug()
 }
 
 type lruProvider struct {
@@ -137,7 +135,7 @@ func (lru *lruProvider) Read(filename string) ([]byte, error) {
 	}
 }
 
-func (lru *lruProvider) Debug() {
+func (lru *lruProvider) debug() {
 	fmt.Fprintf(os.Stdout, "LRU : MaxSize:%d, CacheSize:%d\n", lru.MaxSize, lru.CacheSize)
 	fmt.Fprintf(os.Stdout, "LRU : Header:%p, Tailer:%p\n", lru.Header, lru.Tailer)
 	fmt.Fprintf(os.Stdout, "LRU : Map(%d):\n", len(lru.Cache))
